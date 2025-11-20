@@ -178,9 +178,32 @@ class Query(graphene.ObjectType):
     def resolve_orders(self, info):
         return Order.objects.all()
 
+class UpdateLowStockProducts(graphene.Mutation):
+    class Arguments:
+        pass  # No input arguments needed
+
+    updated_products = graphene.List(ProductType)
+    message = graphene.String()
+
+    def mutate(self, info):
+        # Find products with stock < 10
+        low_stock_products = Product.objects.filter(stock__lt=10)
+
+        updated_list = []
+        for product in low_stock_products:
+            product.stock += 10  # restock by 10
+            product.save()
+            updated_list.append(product)
+
+        return UpdateLowStockProducts(
+            updated_products=updated_list,
+            message=f"Updated {len(updated_list)} low-stock products"
+        )
 
 class Mutation(graphene.ObjectType):
     create_customer = CreateCustomer.Field()
     bulk_create_customers = BulkCreateCustomers.Field()
     create_product = CreateProduct.Field()
     create_order = CreateOrder.Field()
+    update_low_stock_products = UpdateLowStockProducts.Field()
+    
