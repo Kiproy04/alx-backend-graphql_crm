@@ -3,6 +3,7 @@ from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 
 LOG_FILE = "/tmp/crm_heartbeat_log.txt"
+LOG_FILE = "/tmp/low_stock_updates_log.txt"
 GRAPHQL_URL = "http://localhost:8000/graphql"
 
 def log_crm_heartbeat():
