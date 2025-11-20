@@ -3,9 +3,9 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from crm.models import Customer, Product, Order
+from .models import Customer, Order
 from .filters import CustomerFilter, ProductFilter, OrderFilter
-
+from crm.models import Product
 
 # === Types ===
 class CustomerType(DjangoObjectType):
