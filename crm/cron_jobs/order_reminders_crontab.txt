@@ -1,1 +1,1 @@
-0 8 * * * /home/leroy/myenv/bin/python /home/leroy/myproject/crm/cron_jobs/send_order_reminders.py
+0 8 * * * /home/leroy/venv/bin/python /home/leroy/alx-backend-graphql_crm/crm/cron_jobs/send_order_reminders.py
