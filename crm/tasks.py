@@ -9,16 +9,18 @@ GRAPHQL_URL = "http://localhost:8000/graphql"
 @shared_task
 def generate_crm_report():
     """
-    Generates a weekly CRM report: total customers, total orders, total revenue.
-    Logs the report to /tmp/crm_report_log.txt with a timestamp.
+    Generates a weekly CRM report via GraphQL:
+    - total customers
+    - total orders
+    - total revenue
+    Logs results to /tmp/crm_report_log.txt
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # GraphQL client
+    # GraphQL client using gql (no requests library)
     transport = RequestsHTTPTransport(url=GRAPHQL_URL, verify=True, retries=3)
     client = Client(transport=transport, fetch_schema_from_transport=True)
 
-    # GraphQL query
     query = gql("""
         query {
             totalCustomers
